@@ -1,5 +1,6 @@
-# layer5-repo-template
-This repository is used as the boilerplate for consistency across all Layer5 repos.
+# Service Mesh Patterns for mesheryctl GitHub Action
+
+Incorporate Service Mesh Patterns into your GitHub workflows using Meshery's CLI
 
 <div>&nbsp;</div>
 
