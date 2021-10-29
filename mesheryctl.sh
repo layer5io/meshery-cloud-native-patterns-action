@@ -4,8 +4,8 @@ SCRIPT_DIR=$(dirname -- "$(readlink -f "${BASH_SOURCE[0]}" || realpath "${BASH_S
 
 
 main() {
-	local pattern_filename=
-	local pattern_name=
+	local pattern_filename=pat.yml
+	
 
 	parse_command_line "$@"
 
@@ -23,7 +23,7 @@ main() {
 
 			mesheryctl system config minikube -t ~/auth.json
 
-		mesheryctl pattern apply $pattern_name 
+		 
 
 	fi
 }
@@ -38,15 +38,6 @@ parse_command_line() {
 					shift
 				else
 					echo "ERROR: '--pattern-filename' cannot be empty." >&2
-					exit 1
-				fi
-				;;
-			--pattern-name)
-				if [[ -n "${2:-}" ]]; then
-					pattern_name=$2
-					shift
-				else
-					echo "ERROR: '--pattern-name' cannot be empty." >&2
 					exit 1
 				fi
 				;;
