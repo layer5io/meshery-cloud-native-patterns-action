@@ -23,7 +23,6 @@ main() {
 
 			mesheryctl system config minikube -t ~/auth.json
 
-		fi
 		mesheryctl pattern apply $pattern_name 
 
 	fi
