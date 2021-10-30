@@ -11,17 +11,15 @@ main() {
 
 	if [ -z "$pattern_name" ]
 	then
+		docker network connect bridge meshery_meshery_1
+		docker network connect minikube meshery_meshery_1
+		docker network connect bridge meshery_meshery-"$shortName"_1
+		docker network connect minikube meshery_meshery-"$shortName"_1
 
+		mesheryctl system config minikube -t ~/auth.json
 		mesheryctl pattern apply --file $GITHUB_WORKSPACE/.github/$pattern_filename
 
-	else
-
-            docker network connect bridge meshery_meshery_1
-			docker network connect minikube meshery_meshery_1
-			docker network connect bridge meshery_meshery-"$shortName"_1
-			docker network connect minikube meshery_meshery-"$shortName"_1
-
-			mesheryctl system config minikube -t ~/auth.json
+            
 
 		 
 
