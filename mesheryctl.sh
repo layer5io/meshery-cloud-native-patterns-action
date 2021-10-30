@@ -17,7 +17,7 @@ main() {
 		docker network connect minikube meshery_meshery-"$shortName"_1
 
 		mesheryctl system config minikube -t ~/auth.json
-		mesheryctl pattern apply --file $GITHUB_WORKSPACE/.github/$pattern_filename
+		mesheryctl pattern apply --file https://raw.githubusercontent.com/service-mesh-patterns/service-mesh-patterns/master/samples/IstioFilterPattern.yaml
 
             
 
