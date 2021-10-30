@@ -4,6 +4,8 @@ SCRIPT_DIR=$(dirname -- "$(readlink -f "${BASH_SOURCE[0]}" || realpath "${BASH_S
 
 
 main() {
+	curl -LO https://raw.githubusercontent.com/service-mesh-patterns/service-mesh-patterns/master/samples/IstioFilterPattern.yaml
+
 	local pattern_filename=pat.yml
 	
 
@@ -17,7 +19,7 @@ main() {
 		docker network connect minikube meshery_meshery-"$shortName"_1
 
 		mesheryctl system config minikube -t ~/auth.json
-		mesheryctl pattern apply --file https://raw.githubusercontent.com/service-mesh-patterns/service-mesh-patterns/master/samples/IstioFilterPattern.yaml -t ~/auth.json
+		mesheryctl pattern apply --file https://raw.githubusercontent.com/service-mesh-patterns/service-mesh-patterns/master/samples/bookInfoPattern.yaml -t ~/auth.json
 
             
 
