@@ -24,9 +24,11 @@ main() {
 
 	parse_command_line "$@"
 
-	if [ -z "$pattern_name" ]
+	if [[ $PLATFORM == "docker" ]]
 	then
+
 		shortName=$(echo ${adapters["$service_mesh"]} | cut -d '-' -f2 | cut -d ':' -f1)
+		
 		docker network connect bridge meshery_meshery_1
 		docker network connect minikube meshery_meshery_1
 		docker network connect bridge meshery_meshery-"$shortName"_1
