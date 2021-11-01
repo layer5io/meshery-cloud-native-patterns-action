@@ -19,6 +19,7 @@ adapters["traefik_mesh"]=meshery-traefik-mesh:10006
 main() {
 
 	local pattern_filename=pat.yml
+	local service_mesh=
 	
 
 	parse_command_line "$@"
