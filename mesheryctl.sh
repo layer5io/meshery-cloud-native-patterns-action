@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+set -o errexit
+set -o nounset
+set -o pipefail
+
 SCRIPT_DIR=$(dirname -- "$(readlink -f "${BASH_SOURCE[0]}" || realpath "${BASH_SOURCE[0]}")")
 
 declare -A adapters
@@ -19,7 +23,7 @@ adapters["traefik_mesh"]=meshery-traefik-mesh:10006
 main() {
 
 	local pattern_filename=pat.yml
-	local service_mesh=istio
+	local service_mesh="istio"
 	
 
 	parse_command_line "$@"
