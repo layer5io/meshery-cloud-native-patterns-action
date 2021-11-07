@@ -28,8 +28,8 @@ main() {
 
 	parse_command_line "$@"
 
-	if [[ $PLATFORM == "docker" ]]
-	then
+	
+	
 
 		shortName=$(echo ${adapters["$service_mesh"]} | cut -d '-' -f2 | cut -d ':' -f1)
 		
@@ -42,11 +42,6 @@ main() {
 		docker ps
 		mesheryctl pattern apply --file https://raw.githubusercontent.com/service-mesh-patterns/service-mesh-patterns/master/samples/IstioFilterPattern.yaml -t ~/auth.json
 
-            
-
-		 
-
-	fi
 }
 
 parse_command_line() {
