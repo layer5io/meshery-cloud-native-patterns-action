@@ -46,6 +46,7 @@ main() {
 		docker ps
 		mesheryctl pattern apply --file https://raw.githubusercontent.com/service-mesh-patterns/service-mesh-patterns/master/samples/IstioFilterPattern.yaml -t ~/auth.json
 		mesheryctl pattern apply --file https://raw.githubusercontent.com/service-mesh-patterns/service-mesh-patterns/master/samples/bookInfoPattern.yaml -t ~/auth.json
+		kubectl get all --all-namespaces
 }
 
 parse_command_line() {
