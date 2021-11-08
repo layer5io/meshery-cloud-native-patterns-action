@@ -24,7 +24,7 @@ main() {
 
 	local pattern_filename=pat.yml
 	local service_mesh="istio"
-	local service_mesh_adapter="istio"
+	local service_mesh_adapter=
 	
 
 	parse_command_line "$@"
@@ -52,6 +52,16 @@ parse_command_line() {
 	while :
 	do
 		case "${1:-}" in
+			--service-mesh)
+				if [[ -n "${2:-}" ]]; then
+					service_mesh=$2
+					service_mesh_adapter=${adapters["$2"]}
+					shift
+				else
+					echo "ERROR: '--service-mesh' cannot be empty." >&2
+					exit 1
+				fi
+				;;
 			--pattern-filename)
 				if [[ -n "${2:-}" ]]; then
 					pattern_filename=$2
