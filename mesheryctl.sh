@@ -24,6 +24,7 @@ main() {
 
 	local pattern_filename=pat.yml
 	local service_mesh="istio"
+	local service_mesh_adapter="istio"
 	
 
 	parse_command_line "$@"
@@ -39,6 +40,9 @@ main() {
 		docker network connect minikube meshery_meshery-"$shortName"_1
 
 		mesheryctl system config minikube -t ~/auth.json
+		echo "Deploying $service_mesh..."
+		mesheryctl mesh deploy --adapter $service_mesh_adapter -t ~/auth.json $service_mesh
+		sleep 30
 		docker ps
 		mesheryctl pattern apply --file https://raw.githubusercontent.com/service-mesh-patterns/service-mesh-patterns/master/samples/IstioFilterPattern.yaml -t ~/auth.json
 
