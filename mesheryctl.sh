@@ -45,7 +45,7 @@ main() {
 		sleep 30
 		docker ps
 		mesheryctl pattern apply --file https://raw.githubusercontent.com/service-mesh-patterns/service-mesh-patterns/master/samples/IstioFilterPattern.yaml -t ~/auth.json
-
+		sleep 4m 30s
 }
 
 parse_command_line() {
