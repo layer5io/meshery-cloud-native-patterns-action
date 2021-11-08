@@ -10,6 +10,7 @@ main() {
 
 	local provider_token=
 	local PLATFORM=docker
+	local service_mesh_adapter=
 
 	parse_command_line "$@"
 
@@ -25,19 +26,22 @@ main() {
 
 	if [[ -z $provider_token ]]
 	then
-		printf "Token not provided.\nUsing local provider...\n"
+		printf "Token not provided.\n Using local provider..."
 		echo '{ "meshery-provider": "None", "token": null }' | jq -c '.token = ""'> ~/auth.json
 	else
 		echo '{ "meshery-provider": "Meshery", "token": null }' | jq -c '.token = "'$provider_token'"' > ~/auth.json
 	fi
-	cat ~/auth.json
 
 	kubectl config view --minify --flatten > ~/minified_config
 	mv ~/minified_config ~/.kube/config
 
-  curl -L https://git.io/meshery | PLATFORM=$PLATFORM bash -
+	curl -L https://git.io/meshery | DEPLOY_MESHERY=false bash -
 
-	sleep 60
+	mesheryctl system context create new-context --adapters $service_mesh_adapter --platform docker --url http://localhost:9081 --set --yes
+
+	mesheryctl system start --yes
+
+	sleep 30
 }
 
 create_k8s_cluster() {
@@ -48,6 +52,18 @@ create_k8s_cluster() {
 	minikube version
 	minikube start --driver=docker --kubernetes-version=v1.20.7
 	sleep 40
+}
+
+wait_for_docker() {
+	while :
+	do
+		if docker version -f '{{.Server.Version}} - {{.Client.Version}}'
+		then
+			break
+		else
+			sleep 5
+		fi
+	done
 }
 
 meshery_config() {
@@ -90,6 +106,15 @@ parse_command_line() {
 			#		exit 1
 			#	fi
 			#	;;
+			--service-mesh)
+				if [[ -n "${2:-}" ]]; then
+					service_mesh_adapter=meshery-$2
+					shift
+				else
+					echo "ERROR: '--service-mesh' cannot be empty." >&2
+					exit 1
+				fi
+				;;
 			*)
 				break
 				;;
