@@ -25,12 +25,10 @@ main() {
 	local pattern_filename=pat.yml
 	local service_mesh="istio"
 	local service_mesh_adapter=
+	local url="https://raw.githubusercontent.com/service-mesh-patterns/service-mesh-patterns/master/samples/IstioFilterPattern.yaml"
 	
 
 	parse_command_line "$@"
-
-	
-	
 
 		shortName=$(echo ${adapters["$service_mesh"]} | cut -d '-' -f2 | cut -d ':' -f1)
 		
@@ -44,8 +42,7 @@ main() {
 		mesheryctl mesh deploy --adapter $service_mesh_adapter -t ~/auth.json $service_mesh
 		sleep 30
 		docker ps
-		mesheryctl pattern apply --file https://raw.githubusercontent.com/service-mesh-patterns/service-mesh-patterns/master/samples/IstioFilterPattern.yaml -t ~/auth.json
-		mesheryctl pattern apply --file https://raw.githubusercontent.com/service-mesh-patterns/service-mesh-patterns/master/samples/bookInfoPattern.yaml -t ~/auth.json
+		mesheryctl pattern apply --file $url -t ~/auth.json
 		sleep 3m 30s
 		kubectl get all --all-namespaces
 }
@@ -64,15 +61,15 @@ parse_command_line() {
 					exit 1
 				fi
 				;;
-			--pattern-filename)
-				if [[ -n "${2:-}" ]]; then
-					pattern_filename=$2
-					shift
-				else
-					echo "ERROR: '--pattern-filename' cannot be empty." >&2
-					exit 1
-				fi
-				;;
+			# --pattern-filename)
+			# 	if [[ -n "${2:-}" ]]; then
+			# 		pattern_filename=$2
+			# 		shift
+			# 	else
+			# 		echo "ERROR: '--pattern-filename' cannot be empty." >&2
+			# 		exit 1
+			# 	fi
+			# 	;;
 			*)
 				break
 				;;
