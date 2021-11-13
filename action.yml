@@ -11,6 +11,9 @@ inputs:
   platform:
     description: "Platform to deploy meshery on. Possible values: docker, kubernetes"
     default: docker
+  url:
+    description: "A raw Github URL for the patterns to be deployed"
+    default: "https://raw.githubusercontent.com/service-mesh-patterns/service-mesh-patterns/master/samples/IstioFilterPattern.yaml"
 runs:
   using: "node12"
   main: "main.js"
