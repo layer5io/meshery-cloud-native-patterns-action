@@ -43,7 +43,7 @@ main() {
 		sleep 30
 		docker ps
 		mesheryctl pattern apply --file $url -t ~/auth.json
-		sleep 3m 30s
+		sleep 30s
 		kubectl get all --all-namespaces
 }
 

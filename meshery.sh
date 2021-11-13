@@ -97,15 +97,6 @@ parse_command_line() {
 					exit 1
 				fi
 				;;
-			#--service-mesh)
-			#	if [[ -n "${2:-}" ]]; then
-			#		meshery_config "meshery-$2"
-			#		shift
-			#	else
-			#		echo "ERROR: '--service-mesh' cannot be empty." >&2
-			#		exit 1
-			#	fi
-			#	;;
 			--service-mesh)
 				if [[ -n "${2:-}" ]]; then
 					service_mesh_adapter=meshery-$2
