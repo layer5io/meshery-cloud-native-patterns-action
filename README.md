@@ -4,6 +4,34 @@ Incorporate Service Mesh Patterns into your GitHub workflows using Meshery's CLI
 
 <div>&nbsp;</div>
 
+## Sample pattern action configuration
+
+```yaml
+name: Mesheryctl Pattern Action
+on:
+  push:
+    branches:
+      - 'master'
+  # if manually triggering, provide a provider token yourself
+  workflow_dispatch:
+    inputs:
+      provider_token:
+        description: "Meshery auth token"
+        required: true
+
+jobs:
+  mesheryctl-pattern-action:
+    name: Mesheryctl Pattern Actions 
+    runs-on: ubuntu-latest
+    steps:
+      - name: mesheryctl pattern action
+        uses: layer5io/mesheryctl-service-mesh-patterns-action@master
+        with:
+          provider_token: ${{ github.event.inputs.provider_token }}
+          platform: docker
+          url: https://raw.githubusercontent.com/service-mesh-patterns/service-mesh-patterns/master/samples/IstioFilterPattern.yaml
+```
+
 ## Join the service mesh community!
 
 <a name="contributing"></a><a name="community"></a>
