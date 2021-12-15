@@ -23,9 +23,9 @@ adapters["traefik_mesh"]=meshery-traefik-mesh:10006
 main() {
 
 	local pattern_filename=pat.yml
-	local service_mesh="istio"
+	local service_mesh=
 	local service_mesh_adapter=
-	local url="https://raw.githubusercontent.com/service-mesh-patterns/service-mesh-patterns/master/samples/IstioFilterPattern.yaml"
+	local url=
 	
 
 	parse_command_line "$@"

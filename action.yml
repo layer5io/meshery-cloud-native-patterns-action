@@ -7,6 +7,7 @@ inputs:
   service_mesh:
     # used for provisioning appropriate meshery-adatper
     description: "Service mesh to use. e.g: osm, istio etc"
+    default: istio
     required: true
   platform:
     description: "Platform to deploy meshery on. Possible values: docker, kubernetes"
@@ -14,6 +15,7 @@ inputs:
   url:
     description: "A raw Github URL for the patterns to be deployed"
     default: "https://raw.githubusercontent.com/service-mesh-patterns/service-mesh-patterns/master/samples/IstioFilterPattern.yaml"
+    required: true
 runs:
   using: "node12"
   main: "main.js"
