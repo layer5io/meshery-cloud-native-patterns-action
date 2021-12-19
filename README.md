@@ -1,35 +1,229 @@
-# Service Mesh Patterns for mesheryctl GitHub Action
+# Meshery - Service Mesh Patterns GitHub Action
 
-Incorporate Service Mesh Patterns into your GitHub workflows using Meshery's CLI
+GitHub Action to deploy [Service Mesh Patterns](https://layer5.io/learn/service-mesh-books/service-mesh-patterns) on CI/CD pipelines.
 
-<div>&nbsp;</div>
+## Learn More
 
-## Sample pattern action configuration
+- [Functionality: Service Mesh Patterns](https://docs.meshery.io/functionality/pattern-management)
+- [Configuring your Deployment with Patterns, Filters and Applications](https://docs.meshery.io/guides/configuration-management#configuring-your-deployment-with-patterns-filters-and-applicatio)
+
+## Supported Service Meshes
+
+Meshery supports 10 different service meshes.
+
+<details>
+  <summary><strong>See all Supported Service Meshes</strong></summary>
+<div class="container flex">
+  <div class="text editable">
+    <p>Service mesh adapters provision, configure, and manage their respective service meshes.
+      <table class="adapters">
+        <thead style="display:none;">
+          <th>Status</th>
+          <th>Adapter</th>
+        </thead>
+        <tbody>
+        <tr>
+          <td rowspan="9" class="stable-adapters">stable</td>
+        </tr>
+        <tr>
+          <td><a href="https://github.com/layer5io/meshery-istio">
+            <img src='https://docs.meshery.io/assets/img/service-meshes/istio.svg' alt='Meshery Adapter for Istio Service Mesh' align="middle" hspace="10px" vspace="5px" height="30px" > Meshery adapter for Istio</a>
+          </td>
+        </tr>
+        <tr>
+          <td><a href="https://github.com/layer5io/meshery-linkerd">
+            <img src='https://docs.meshery.io/assets/img/service-meshes/linkerd.svg' alt='Linkerd' align="middle" hspace="5px" vspace="5px" height="30px" width="30px"> Meshery adapter for Linkerd</a>
+          </td>
+        </tr>
+        <tr>
+          <td><a href="https://github.com/layer5io/meshery-consul">
+            <img src='https://docs.meshery.io/assets/img/service-meshes/consul.svg' alt='Consul Connect' align="middle" hspace="5px" vspace="5px" height="30px" width="30px"> Meshery adapter for Consul</a>
+          </td>
+        </tr>
+        <tr>
+          <td><a href="https://github.com/layer5io/meshery-octarine">
+            <img src='https://docs.meshery.io/assets/img/service-meshes/octarine.svg' alt='Octarine Service Mesh' align="middle" hspace="5px" vspace="5px" height="30px" width="30px">Meshery adapter for Octarine</a>
+          </td>
+        </tr>
+        <tr>
+          <td><a href="https://github.com/layer5io/meshery-nsm">
+            <img src='https://docs.meshery.io/assets/img/service-meshes/nsm.svg' alt='Network Mesh' align="middle" hspace="5px" vspace="5px" height="30px" width="30px">Meshery adapter for Network Service Mesh</a>
+          </td>
+        </tr>
+         <tr>
+           <td><a href="https://github.com/layer5io/meshery-kuma">
+             <img src='https://docs.meshery.io/assets/img/service-meshes/kuma.svg' alt='Kuma Service Mesh' align="middle" hspace="5px" vspace="5px" height="30px" width="30px">Meshery adapter for Kuma</a>
+           </td>
+        </tr>
+          <tr>
+          <td><a href="https://github.com/layer5io/meshery-osm">
+            <img src='https://docs.meshery.io/assets/img/service-meshes/osm.svg' alt='Open Service Mesh' align="middle" hspace="5px" vspace="5px" height="30px" width="30px">Meshery adapter for Open Service Mesh</a>
+          </td>
+        </tr>
+        <tr><td colspan="2" class="stable-adapters"></td></tr>
+        <tr>
+          <td rowspan="5" class="beta-adapters">beta</td>
+        </tr>
+         <tr>
+          <td><a href="https://github.com/layer5io/meshery-cpx">
+            <img src='https://docs.meshery.io/assets/img/service-meshes/citrix.svg' alt='Citrix CPX Service Mesh' align="middle" hspace="5px" vspace="5px" height="30px" width="30px">Meshery adapter for Citrix CPX</a>
+          </td>
+        </tr>
+        <tr>
+          <td><a href="https://github.com/layer5io/meshery-traefik-mesh">
+            <img src='https://docs.meshery.io/assets/img/service-meshes/traefik-mesh.svg' alt='Traefik Service Mesh' align="middle" hspace="5px" vspace="5px" height="30px" width="30px">Meshery adapter for Traefik Mesh</a>
+          </td>
+        </tr>
+           <tr>
+          <td><a href="https://github.com/meshery/meshery-nginx-sm">
+            <img src='https://docs.meshery.io/assets/img/service-meshes/nginx-sm.svg' alt='NGINX Service Mesh' align="middle" hspace="5px" vspace="5px" height="30px" width="30px">Meshery adapter for NGINX Service Mesh</a>
+          </td>
+        </tr>
+        <tr><td colspan="2" class="beta-adapters"></td></tr>
+        <tr>
+          <td rowspan="3" class="alpha-adapters">alpha</td>
+        </tr>
+        <tr>
+          <td><a href="https://github.com/meshery/meshery-tanzu-sm">
+            <img src='https://docs.meshery.io/assets/img/service-meshes/tanzu.svg' alt='Tanzu Service Mesh' align="middle" hspace="5px" vspace="5px" height="30px" width="30px">Meshery adapter for Tanzu SM</a>
+          </td>
+        </tr>
+        <tr>
+          <td><a href="https://github.com/meshery/meshery-app-mesh">
+            <img src='https://docs.meshery.io/assets/img/service-meshes/app-mesh.svg' alt='AWS App Mesh Service Mesh' align="middle" hspace="5px" vspace="5px" height="30px" width="30px">Meshery adapter for App Mesh</a>
+          </td>
+        </tr>
+        <tr><td colspan="2" class="alpha-adapters"></td></tr>
+        </tbody>
+    </table>
+  </p>
+</div>
+ </details>
+
+## Usage
+
+See [action.yml](action.yml)
+
+Users can define pattern files and store it in a remote location and pass the URL to the action or directly keep the file in the `.github` folder and reference it by file name.
+
+### Sample Configurations
+
+#### Deploying a pattern with URL
 
 ```yaml
-name: Mesheryctl Pattern Action
+name: Apply Service Mesh Pattern with Meshery
 on:
-  push:
-    branches:
-      - 'master'
-  # if manually triggering, provide a provider token yourself
   workflow_dispatch:
     inputs:
       provider_token:
-        description: "Meshery auth token"
-        required: true
+        description: "Provider token to use"
+        required: false
+      platform:
+        description: "Platform to deploy Meshery to"
+        required: false
+      pattern_url:
+        description: "URL of the pattern to be deployed"
+        required: false
+      pattern_file:
+        description: "Name of the pattern file relative to the .github folder"
+        required: false
 
 jobs:
-  mesheryctl-pattern-action:
-    name: Mesheryctl Pattern Actions 
+  apply-pattern-file:
+    name: Meshery Pattern Apply 
     runs-on: ubuntu-latest
     steps:
-      - name: mesheryctl pattern action
+      - name: Setup Kubernetes
+        uses: manusa/actions-setup-minikube@v2.4.1
+        with:
+          minikube version: 'v1.23.2'
+          kubernetes version: 'v1.22.2'
+          driver: docker
+
+      - name: Apply Pattern
         uses: layer5io/mesheryctl-service-mesh-patterns-action@master
         with:
           provider_token: ${{ github.event.inputs.provider_token }}
-          platform: docker
-          url: https://raw.githubusercontent.com/service-mesh-patterns/service-mesh-patterns/master/samples/IstioFilterPattern.yaml
+          platform: ${{ github.event.inputs.platform }}
+          pattern_url: ${{ github.event.inputs.pattern_url }}
+```
+
+### Sample Pattern File
+
+```yaml
+name: ImageHubRateLimit
+version: 0.0.1
+services:
+  generic-istio-filter:
+    type: EnvoyFilterIstio
+    namespace: istio-test
+    settings:
+      configPatches:
+        - applyTo: HTTP_FILTER
+          match:
+            context: SIDECAR_INBOUND
+            proxy:
+              proxyVersion: '^1\.9.*'
+            listener:
+              portNumber: 9091
+              filterChain:
+                filter:
+                  name: envoy.http_connection_manager
+                  subFilter:
+                    name: envoy.router
+          patch:
+            operation: INSERT_BEFORE
+            value:
+              name: envoy.filter.http.wasm
+              config_discovery:
+                config_source:
+                  ads: {}
+                  initial_fetch_timeout: 0s
+                type_urls: ["type.googleapis.com/envoy.extensions.filters.http.wasm.v3.Wasm"]
+      workloadSelector:
+        labels:
+          app: api
+          version: v1
+
+  ratelimit-filter:
+    type: EnvoyFilterIstio
+    namespace: istio-test
+    settings:
+      configPatches:
+        - applyTo: EXTENSION_CONFIG
+          match:
+            context: SIDECAR_INBOUND
+          patch:
+            operation: ADD
+            value:
+              name: envoy.filter.http.wasm
+              typed_config:
+                "@type": type.googleapis.com/udpa.type.v1.TypedStruct
+                type_url: type.googleapis.com/envoy.extensions.filters.http.wasm.v3.Wasm
+                value:
+                  config:
+                    configuration:
+                      "@type": type.googleapis.com/google.protobuf.StringValue
+                      value: "rate_limit_filter"
+                    root_id: "rate_limit_filter"
+                    vm_config:
+                      code:
+                        remote:
+                          http_uri:
+                            uri: https://github.com/layer5io/image-hub/raw/master/rate-limit-filter/pkg/rate_limit_filter_bg.wasm
+                          
+                      runtime: envoy.wasm.runtime.v8
+                      vm_id: rate_limit_filter
+                      configuration:
+                        "@type": type.googleapis.com/google.protobuf.StringValue
+                        value: "WwogIHsKICAgICJuYW1lIjogIi9wdWxsIiwKICAgICJydWxlIjp7CiAgICAgICJydWxlVHlwZSI6ICJyYXRlLWxpbWl0ZXIiLAogICAgICAicGFyYW1ldGVycyI6WwogICAgICAgIHsiaWRlbnRpZmllciI6ICJFbnRlcnByaXNlIiwgImxpbWl0IjogMTAwMH0sCiAgICAgICAgeyJpZGVudGlmaWVyIjogIlRlYW0iLCAibGltaXQiOiAxMDB9LAogICAgICAgIHsiaWRlbnRpZmllciI6ICJQZXJzb25hbCIsICJsaW1pdCI6IDEwfQogICAgICBdCiAgICB9CiAgfSwKICB7CiAgICAibmFtZSI6ICIvYXV0aCIsCiAgICAicnVsZSI6ewogICAgICAicnVsZVR5cGUiOiAibm9uZSIKICAgIH0KICB9LAogIHsKICAgICJuYW1lIjogIi9zaWdudXAiLAogICAgInJ1bGUiOnsKICAgICAgInJ1bGVUeXBlIjogIm5vbmUiCiAgICB9CiAgfSwKICB7CiAgICAibmFtZSI6ICIvdXBncmFkZSIsCiAgICAicnVsZSI6ewogICAgICAicnVsZVR5cGUiOiAibm9uZSIKICAgIH0KICB9Cl0="
+                      allow_precompiled: true
+      workloadSelector:
+        labels:
+          app: api
+          version: v1
+    dependsOn:
+      - generic-istio-filter
 ```
 
 ## Join the service mesh community!
