@@ -6,14 +6,7 @@ set -o pipefail
 
 SCRIPT_DIR=$(dirname -- "$(readlink -f "${BASH_SOURCE[0]}" || realpath "${BASH_SOURCE[0]}")")
 
-# Short names
-declare -A meshName
-meshName["open_service_mesh"]=osm
-meshName["traefik_mesh"]=traefik-mesh
-meshName["network_service_mesh"]=nsm
-
 main() {
-	local INPUT_SERVICE_MESH="istio"
 	get_dependencies
 
 	setupArgs=()
@@ -25,30 +18,15 @@ main() {
 		setupArgs+=(--platform ${INPUT_PLATFORM})
 	fi
 
-	if [[ -n "${INPUT_SERVICE_MESH:-}" ]]; then
-		meshNameLower=`echo $INPUT_SERVICE_MESH  | tr -d '"' | tr '[:upper:]' '[:lower:]'`
-		if [ $meshNameLower = "open_service_mesh" ] || [ $meshNameLower = "traefik_mesh" ] || [ $meshNameLower = "network_service_mesh" ]
-		then
-			serviceMeshAbb=${meshName["$meshNameLower"]}
-		else
-			serviceMeshAbb=$meshNameLower
-		fi
-		setupArgs+=(--service-mesh ${serviceMeshAbb})
-	fi
-
 	bash "$SCRIPT_DIR/meshery.sh" "${setupArgs[@]}"
 
 	commandArgs=()
-	if [[ -n "${INPUT_PATTERN_FILENAME:-}" ]]; then
-		commandArgs=(--pattern-filename ${INPUT_PATTERN_FILENAME})
+	if [[ -n "${INPUT_PATTERN_FILE:-}" ]]; then
+		commandArgs=(--pattern-file ${INPUT_PATTERN_FILE})
 	fi
 
-	if [[ -n "${INPUT_PATTERN_NAME:-}" ]]; then
-		commandArgs=(--pattern-name ${INPUT_PATTERN_NAME})
-	fi
-
-	if [[ -n "${INPUT_SERVICE_MESH:-}" ]]; then
-		commandArgs+=(--service-mesh ${meshNameLower})
+	if [[ -n "${INPUT_PATTERN_URL:-}" ]]; then
+		commandArgs=(--pattern-url ${INPUT_PATTERN_URL})
 	fi
 
 	bash "$SCRIPT_DIR/mesheryctl.sh" "${commandArgs[@]}"

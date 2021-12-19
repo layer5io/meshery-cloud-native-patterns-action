@@ -2,23 +2,25 @@ name: "Service Mesh Pattern Testing with Meshery"
 description: "Importing Pattern to Meshery"
 author: "Layer5"
 inputs:
+  # token to authenticate with Meshery
   provider_token:
     description: "Provider token to use. NOTE: value of the 'token' key in auth.json"
-  service_mesh:
-    # used for provisioning appropriate meshery-adatper
-    description: "Service mesh to use. e.g: osm, istio etc"
-    default: istio
-    required: true
+    required: false
+  # platform to deploy Meshery to
   platform:
-    description: "Platform to deploy meshery on. Possible values: docker, kubernetes"
+    description: "Platform to deploy Meshery to. Allowed values: docker, kubernetes"
     default: docker
-  url:
-    description: "A raw Github URL for the patterns to be deployed"
-    default: "https://raw.githubusercontent.com/service-mesh-patterns/service-mesh-patterns/master/samples/IstioFilterPattern.yaml"
-    required: true
+    required: false
+  pattern_url:
+    description: "URL of the pattern to be deployed"
+    required: false
+  # upload the pattern file to the .github folder and reference its path relative to the folder
+  pattern_file:
+    description: "Name of the pattern file relative to the .github folder"
+    required: false
 runs:
   using: "node12"
   main: "main.js"
 branding:
-  icon: 'check-circle'
-  color: 'green'
+  icon: 'settings'
+  color: 'purple'
