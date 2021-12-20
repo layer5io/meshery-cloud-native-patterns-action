@@ -11,7 +11,7 @@ main() {
 
 	setupArgs=()
 	if [[ -n "${INPUT_PROVIDER_TOKEN:-}" ]]; then
-		setupArgs+=(--provider-token ${INPUT_PROVIDER_TOKEN})
+		setupArgs=(--provider-token ${INPUT_PROVIDER_TOKEN})
 	fi
 
 	if [[ -n "${INPUT_PLATFORM:-}" ]]; then
@@ -26,7 +26,7 @@ main() {
 	fi
 
 	if [[ -n "${INPUT_PATTERN_URL:-}" ]]; then
-		commandArgs=(--pattern-url ${INPUT_PATTERN_URL})
+		commandArgs+=(--pattern-url ${INPUT_PATTERN_URL})
 	fi
 
 	bash "$SCRIPT_DIR/mesheryctl.sh" "${commandArgs[@]}"
