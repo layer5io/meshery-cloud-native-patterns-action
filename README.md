@@ -1,6 +1,6 @@
-# Meshery - Service Mesh Patterns GitHub Action
+# Meshery - Cloud Native Patterns GitHub Action
 
-GitHub Action to deploy [Service Mesh Patterns](https://layer5.io/learn/service-mesh-books/service-mesh-patterns) on CI/CD pipelines.
+GitHub Action to deploy [Cloud Native Patterns](https://layer5.io/learn/service-mesh-books/service-mesh-patterns) on CI/CD pipelines.
 
 ## Learn More
 
