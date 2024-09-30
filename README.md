@@ -9,6 +9,7 @@ GitHub Action to deploy [Cloud Native Patterns](https://layer5.io/learn/service-
 
 ## Supported Service Meshes
 
+Among hundreds of other cloud, native integrations,
 Meshery supports 10 different service meshes.
 
 <details>
